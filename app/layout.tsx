@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Lusikisiki Hardcore Shooting Range & Training Services",
   description: "Training, Supply & Security Services",
   icons: {
-    icon: "/mode.ico",
+    icon: "/lusiki.ico",
   },
 };
 

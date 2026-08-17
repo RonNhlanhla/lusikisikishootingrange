@@ -13,7 +13,7 @@ export default function Header() {
     { image: "/hero/ClubShirt.png", title: "JOIN OUR SHOOTING CLUB", description: "CHALLENGE YOURSELF AND YOUR FRIENDS SAFELY" },
     { image: "/hero/family.jpg", title: "WE HELP YOU FOCUS ON WHAT MATTERS MOST", description: "QUALITY PROTECTION SERVICES" },
     { image: "/club/knights_3.jpg", title: "TRAINING DONE RIGHT", description: "OUR COURSES INCLUDE FIREARM TRAINING, PSIRA, ETDP SETA, SASSETA, COMPUTER TRAINING" },
-    { image: "/hero/handgunRange.jpg", title: "TRAINING DONE RIGHT", description: "OUR COURSES INCLUDE FIREARM TRAINING, PSIRA, ETDP SETA, SASSETA, COMPUTER TRAINING" }
+    { image: "/hero/opening.jpg", title: "TRAINING DONE RIGHT", description: "OUR COURSES INCLUDE FIREARM TRAINING, PSIRA, ETDP SETA, SASSETA, COMPUTER TRAINING" }
   ]
   const sitelinks = "GUARDING | TRAINING | DETECTION | FIREARMS | SUPPLIES";
 
