@@ -134,7 +134,7 @@ const Cart = () => {
             Clear All
           </Button>
           <Button
-            className="h-12 bg-green-600 hover:bg-green-700"
+            className="h-12"
             onClick={handleCheckout}
             disabled={items.length === 0}
           >

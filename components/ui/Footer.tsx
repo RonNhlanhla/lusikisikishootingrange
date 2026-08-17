@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="flex flex-row sm:place-items-center">
             <Image
               src="/Logo.png"
-              alt="Mode Security and Training Services"
+              alt="Lusikisiki Hardcore Shooting Range and Training Services"
               width={120}
               height={100}
               style={{ objectFit: 'contain' }}
@@ -29,24 +29,24 @@ const Footer = () => {
 
           {/* Social Icons */}
           <div className="flex space-x-4 mt-4 items-center">
-            <Link href="https://wa.me/27626176600?text=Hi-there!" className="text-gray-600 hover:text-gray-800">
+            <Link href="https://wa.me/+27810857636?text=Hi-there!" className="text-gray-600 hover:text-gray-800">
               <div className="">
-                <MessageCircle size={20} strokeWidth={2} color="green" className="hover:text-gold" />
+                <MessageCircle size={20} strokeWidth={2} color="black" className="hover:text-gold" />
               </div>
             </Link>
             <Link href="https://www.facebook.com/people/Mode-Security-and-Training-Services-Pty-Ltd/100063864287966/" className="text-gray-600 hover:text-gray-800">
               <div className="">
-                <Facebook size={20} strokeWidth={2} color="green" className="hover:text-gold" />
+                <Facebook size={20} strokeWidth={2} color="black" className="hover:text-gold" />
               </div>
             </Link>
             <Link href="https://www.instagram.com/mode_security/" className="text-gray-600 hover:text-gray-800">
               <div className="">
-                <Instagram size={20} strokeWidth={2} color="green" className="hover:text-gold" />
+                <Instagram size={20} strokeWidth={2} color="black" className="hover:text-gold" />
               </div>
             </Link>
             <Link href="https://www.linkedin.com/company/mode-security" className="text-gray-600 hover:text-gray-800">
               <div className="">
-                <Linkedin size={20} strokeWidth={2} color="green" className="hover:text-gold" />
+                <Linkedin size={20} strokeWidth={2} color="black" className="hover:text-gold" />
               </div>
             </Link>
 
@@ -57,7 +57,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="w-full mt-2 md:mt-4">
         <div className="grid place-items-center bg-green h-20">
-          <p className="font-bold items-center justify-center p-4 text-center text-white">Mode Security and Training Services © 2026</p>
+          <p className="font-bold items-center justify-center p-4 text-center text-white">Lusikisiki Hardcore Shooting Range and Training Services © 2026</p>
         </div>
       </div>
     </div>

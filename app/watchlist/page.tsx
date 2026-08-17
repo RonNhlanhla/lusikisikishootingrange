@@ -16,7 +16,7 @@ export default function Watchlist() {
   const jobs = useQuery(api.myFunctions.getJobsByUser) || [];
   const otherJobs = useQuery(api.myFunctions.getJobsUsers) || [];
   const { isAuthenticated, isLoading } = useConvexAuth();
-  
+
 
 
   const handleEditJob = (jobId: string) => {
@@ -90,14 +90,14 @@ export default function Watchlist() {
 
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <h1 className="text-3xl font-bold mb-6 text-gray-800">
-            Welcome to Mode Security Watchlist, {user?.username || 'User'}!
+            Welcome to Lusikisiki Hardcore Shooting Range Watchlist, {user?.username || 'User'}!
           </h1>
 
           {/* Watchlist Information */}
           <div className="mb-8 p-6 bg-green-50 rounded-lg border border-green-100">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mode Security Watchlist</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Lusikisiki Hardcore Shooting Range Watchlist</h2>
             <p className="text-gray-700 mb-4">
-              Our Watchlist is a specialized job matching platform that connects top security employers with highly trained Mode Security students who are ready to excel in the field.
+              Our Watchlist is a specialized job matching platform that connects top security employers with highly trained Lusikisiki Hardcore Shooting Range students who are ready to excel in the field.
             </p>
             <div className="space-y-4">
               <div className="flex items-start">
@@ -147,10 +147,10 @@ export default function Watchlist() {
                             <span>R{job.price.toFixed(2)}</span>
                             <span className="mx-2">•</span>
                             <span className={`px-2 py-0.5 text-xs rounded-full ${job.status === 'active'
-                                ? 'bg-green-100 text-green-800'
-                                : job.status === 'filled'
-                                  ? 'bg-blue-100 text-blue-800'
-                                  : 'bg-gray-100 text-gray-800'
+                              ? 'bg-green-100 text-green-800'
+                              : job.status === 'filled'
+                                ? 'bg-blue-100 text-blue-800'
+                                : 'bg-gray-100 text-gray-800'
                               }`}>
                               {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
                             </span>

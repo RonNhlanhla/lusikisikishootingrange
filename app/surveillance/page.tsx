@@ -43,27 +43,27 @@ export default function Page() {
                 </div>
                 <div className="w-full grid sm:grid-cols-1 p-2 gap-y-2 items-center justify-center">
                     <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-                        <Trophy size={50} color="#D2AC67" />
+                        <Trophy size={50} color="#dc2626" />
                         <div className="w-2/3"><h3 className="text-center md:text-left">Unparalleled Expertise</h3>
                             <p className="text-center md:text-left">With a proven track record of guarding numerous sites, our team has overseen the security operations of a wide range of establishments. We have a wealth of knowledge and experience in safeguarding properties and ensuring the safety of our clients.</p></div>
                     </div>
                     <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-                        <Cctv size={50} color="#D2AC67" />
+                        <Cctv size={50} color="#dc2626" />
                         <div className="w-2/3"><h3 className="text-center md:text-left">State-of-the-Art Control Room</h3>
                             <p className="text-center md:text-left">Our operational control room operates 24/7, providing real-time monitoring and support for all our security personnel. This ensures seamless communication, swift response to emergencies, and effective coordination of security measures.</p></div>
                     </div>
                     <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-                        <Medal size={50} color="#D2AC67" />
+                        <Medal size={50} color="#dc2626" />
                         <div className="w-2/3"><h3 className="text-center md:text-left">Highly Trained Guards</h3>
                             <p className="text-center md:text-left">Our guarding services feature a team of extensively trained and skilled security officers. We offer both unarmed and armed guards, carefully selected for their professionalism, integrity, and ability to handle any security situation with utmost professionalism and efficiency.</p></div>
                     </div>
                     <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-                        <Siren size={50} color="#D2AC67" />
+                        <Siren size={50} color="#dc2626" />
                         <div className="w-2/3"><h3 className="text-center md:text-left">Comprehensive Site Patrolling</h3>
                             <p className="text-center md:text-left">Our guards diligently patrol the designated sites to maintain a visible security presence and deter potential threats. We prioritize thorough site inspections and employ proactive strategies to identify and address vulnerabilities promptly.</p></div>
                     </div>
                     <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-                        <HeartHandshake size={50} color="#D2AC67" />
+                        <HeartHandshake size={50} color="#dc2626" />
                         <div className="w-2/3"><h3 className="text-center md:text-left">Trusted by Governmental Organizations and Large Companies</h3>
                             <p className="text-center md:text-left">Our commitment to excellence has earned us the trust and preference of critical governmental organizations and prominent businesses in South Africa. We are proud to have been chosen as the trusted security provider for their vital operations.</p></div>
                     </div>

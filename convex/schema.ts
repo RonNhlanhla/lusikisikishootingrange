@@ -27,7 +27,7 @@ export default defineSchema({
     value: v.number(),
   }),
   userRoles: defineTable({
-    role: v.string(),
+    role: v.string(), //learner & admin
     // other fields...
   }),
   users: defineTable({
@@ -53,6 +53,27 @@ export default defineSchema({
           v.literal("shotgun"),
           v.literal("hunting rifle")
         )
+      )
+    ),
+    competency_status: v.optional(v.string()),
+    competency_number: v.optional(v.string()),
+    competency_issue_date: v.optional(v.string()),
+    competency_expiry_date: v.optional(v.string()),
+    competency_types: v.optional(v.array(v.string())),
+    regulation_21_status: v.optional(v.string()),
+    regulation_21_expiry: v.optional(v.string()),
+    regulation_21_number: v.optional(v.string()),
+    registered_firearms: v.optional(
+      v.array(
+        v.object({
+          id: v.string(),
+          make: v.string(),
+          model: v.string(),
+          caliber: v.string(),
+          serial_number: v.string(),
+          license_type: v.string(),
+          expiry_date: v.string(),
+        })
       )
     ),
     // other "users" fields...
@@ -97,6 +118,9 @@ export default defineSchema({
     recipientName: v.optional(v.string()),
     idNumber: v.optional(v.string()),
     bookingDate: v.optional(v.number()),
+    pdfStorageId: v.optional(v.string()),
+    pdfName: v.optional(v.string()),
+    downloadFeePaid: v.optional(v.boolean()),
   })
     .index("by_userId", ["userId"])
     .index("by_courseId", ["courseId"])

@@ -36,27 +36,27 @@ export default function Page() {
         </div>
         <div className="w-full grid sm:grid-cols-1 p-2 gap-y-2 items-center justify-center">
           <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-            <Trophy size={50} color="#D2AC67" />
+            <Trophy size={50} color="#dc2626" />
             <div className="w-2/3"><h3 className="text-center md:text-left">Unparalleled Expertise</h3>
               <p className="text-center md:text-left">With a proven track record of securing numerous sites, our team has overseen the installation and maintenance of a wide range of alarm systems. We have a wealth of knowledge and experience in safeguarding properties and ensuring the safety of our clients.</p></div>
           </div>
           <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-            <Cctv size={50} color="#D2AC67" />
+            <Cctv size={50} color="#dc2626" />
             <div className="w-2/3"><h3 className="text-center md:text-left">24/7 Alarm Monitoring</h3>
               <p className="text-center md:text-left">Our operational control room operates 24/7, providing real-time monitoring and support for all our alarm systems. This ensures seamless communication, swift response to triggers, and effective coordination of security measures.</p></div>
           </div>
           <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-            <Medal size={50} color="#D2AC67" />
+            <Medal size={50} color="#dc2626" />
             <div className="w-2/3"><h3 className="text-center md:text-left">Certified Technicians</h3>
               <p className="text-center md:text-left">Our technical team consists of extensively trained and skilled technicians. They are carefully selected for their professionalism, integrity, and ability to handle any installation or maintenance task with utmost efficiency.</p></div>
           </div>
           <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-            <Siren size={50} color="#D2AC67" />
+            <Siren size={50} color="#dc2626" />
             <div className="w-2/3"><h3 className="text-center md:text-left">Rapid Response Integration</h3>
               <p className="text-center md:text-left">Our systems are designed to integrate seamlessly with armed response services. We prioritize quick detection and employ proactive strategies to ensure that any breach is addressed immediately.</p></div>
           </div>
           <div className='w-full flex flex-col gap-4 md:flex-row items-center justify-center '>
-            <HeartHandshake size={50} color="#D2AC67" />
+            <HeartHandshake size={50} color="#dc2626" />
             <div className="w-2/3"><h3 className="text-center md:text-left">Trusted by Governmental Organizations and Large Companies</h3>
               <p className="text-center md:text-left">Our commitment to excellence has earned us the trust and preference of critical governmental organizations and prominent businesses in South Africa. We are proud to have been chosen as the trusted security provider for their vital operations.
               </p></div>

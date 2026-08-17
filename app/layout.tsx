@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mode Security & Training Services",
+  title: "Lusikisiki Hardcore Shooting Range & Training Services",
   description: "Training, Supply & Security Services",
   icons: {
     icon: "/mode.ico",
@@ -42,11 +42,11 @@ export default function RootLayout({
         <ConvexAuthNextjsServerProvider>
           <ConvexClientProvider>
             <CartProvider>
-              <SidebarProvider>
+              <SidebarProvider defaultOpen={false}>
                 <AppSidebar />
                 <div className="w-full sm:w-full flex flex-col">
-                  <div className="w-full bg-gradient-to-r from-[#00d269] via-[#ebc378] to-[#00d269] animate-gradient text-white text-center py-3 px-4 text-sm md:text-base font-semibold shadow-md z-50">
-                    Click <a href="/sign-in" className="underline">here</a> to register online and get R50 off all our courses.
+                  <div className="w-full bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient text-white text-center py-6 px-4 text-sm md:text-base font-semibold shadow-md z-50">
+                    <a href="/sign-in"><h1 className="text-2xl md:text-4xl font-black tracking-tight">Create an account / Sign In</h1></a>
                   </div>
                   <div className="w-full flex flex-row items-center justify-between space-x-2">
                     <SidebarTrigger />
@@ -66,3 +66,4 @@ export default function RootLayout({
     </html>
   );
 }
+

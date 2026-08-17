@@ -14,11 +14,32 @@ export const getUserinfo = query({
         if (!userId) return null; // not logged in
 
         const user = await ctx.db.get(userId);
-        // Return only the fields you need in the UI
+        if (!user) return null;
+
+        const roleDoc = user.userRoleId ? await ctx.db.get(user.userRoleId) : null;
+        const role = roleDoc?.role ?? "user";
+
+        // Return all fields needed in the UI
         return {
-            _id: user?._id,
-            email: user?.email,
-            username: user?.name,
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            username: user.username ?? user.name,
+            location: user.location,
+            profile_bio: user.profile_bio,
+            profile_picture: user.profile_picture,
+            PSIRA_number: user.PSIRA_number,
+            PSIRA_grade: user.PSIRA_grade,
+            firearm_training: user.firearm_training,
+            competency_status: user.competency_status,
+            competency_number: user.competency_number,
+            competency_issue_date: user.competency_issue_date,
+            competency_types: user.competency_types,
+            role,
+            regulation_21_status: user.regulation_21_status,
+            regulation_21_expiry: user.regulation_21_expiry,
+            regulation_21_number: user.regulation_21_number,
+            registered_firearms: user.registered_firearms,
         };
     },
 });
@@ -283,9 +304,11 @@ export const getMyRegistrations = query({
         const enrichedRegistrations = await Promise.all(
             registrations.map(async (reg) => {
                 const course = await ctx.db.get(reg.courseId);
+                const pdfUrl = reg.pdfStorageId ? await ctx.storage.getUrl(reg.pdfStorageId) : undefined;
                 return {
                     ...reg,
                     courseName: course?.course_name || "Unknown Course",
+                    pdfUrl,
                 };
             })
         );
@@ -338,5 +361,67 @@ export const getMyBookings = query({
             .query("bookings")
             .withIndex("by_userId", (q) => q.eq("userId", userId))
             .collect();
+    },
+});
+
+export const updateCompetency = mutation({
+    args: {
+        competency_status: v.string(),
+        competency_number: v.optional(v.string()),
+        competency_issue_date: v.optional(v.string()),
+        competency_types: v.array(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const userId = await getAuthUserId(ctx);
+        if (!userId) throw new Error("User must be logged in");
+
+        await ctx.db.patch(userId, {
+            competency_status: args.competency_status,
+            competency_number: args.competency_number,
+            competency_issue_date: args.competency_issue_date,
+            competency_types: args.competency_types,
+        });
+    },
+});
+
+export const updateRegulation21 = mutation({
+    args: {
+        regulation_21_status: v.string(),
+        regulation_21_number: v.optional(v.string()),
+        regulation_21_expiry: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const userId = await getAuthUserId(ctx);
+        if (!userId) throw new Error("User must be logged in");
+
+        await ctx.db.patch(userId, {
+            regulation_21_status: args.regulation_21_status,
+            regulation_21_number: args.regulation_21_number,
+            regulation_21_expiry: args.regulation_21_expiry,
+        });
+    },
+});
+
+export const updateRegisteredFirearms = mutation({
+    args: {
+        registered_firearms: v.array(
+            v.object({
+                id: v.string(),
+                make: v.string(),
+                model: v.string(),
+                caliber: v.string(),
+                serial_number: v.string(),
+                license_type: v.string(),
+                expiry_date: v.string(),
+            })
+        ),
+    },
+    handler: async (ctx, args) => {
+        const userId = await getAuthUserId(ctx);
+        if (!userId) throw new Error("User must be logged in");
+
+        await ctx.db.patch(userId, {
+            registered_firearms: args.registered_firearms,
+        });
     },
 });
