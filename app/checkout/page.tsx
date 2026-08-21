@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { Download } from "lucide-react";
 
 // Helper function for currency formatting – uses South African Rand
 const formatCurrency = (amount: number) => {
@@ -32,15 +33,15 @@ export default function CheckoutPage() {
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
 
-  const address = deliveryMethod === "delivery" 
+  const address = deliveryMethod === "delivery"
     ? `${street.trim()}, ${city.trim()}, ${postalCode.trim()}`
     : "";
 
-  const isCheckoutReady = 
-    recipientName.trim() !== "" && 
+  const isCheckoutReady =
+    recipientName.trim() !== "" &&
     idNumber.trim() !== "" &&
     (
-      deliveryMethod === "collect" || 
+      deliveryMethod === "collect" ||
       (deliveryMethod === "delivery" && street.trim() !== "" && city.trim() !== "" && postalCode.trim() !== "")
     );
 
@@ -49,42 +50,7 @@ export default function CheckoutPage() {
     ? "sandbox.payfast.co.za"
     : "www.payfast.co.za";
 
-  // ----- Manual Registration Handler -----
-  const handleCreateRegistration = async () => {
-    if (!items || items.length === 0) return;
-    try {
-      const courseItems = items.filter((item) => item.type === "course");
-      if (courseItems.length === 0) {
-        alert("No course items in cart to register.");
-        return;
-      }
-      const registrationItems = courseItems.flatMap((item) =>
-        Array(item.quantity)
-          .fill(null)
-          .map(() => {
-            const dateStr = 'date' in item ? (item as any).date : undefined;
-            return {
-              courseId: item.id as Id<"courses">,
-              amount: item.price,
-              bookingDate: dateStr ? new Date(dateStr).getTime() : undefined,
-            };
-          }),
-      );
 
-      await createRegistrations({ 
-        items: registrationItems,
-        deliveryMethod: deliveryMethod as "collect" | "delivery",
-        address,
-        recipientName,
-        idNumber,
-      });
-      alert("Registration created successfully!");
-      clearCart();
-    } catch (error) {
-      console.error("Error creating registration:", error);
-      alert("Failed to create registration.");
-    }
-  };
 
   // ----- PayNow handler -----
   const handlePayNow = async () => {
@@ -110,7 +76,7 @@ export default function CheckoutPage() {
       );
 
       // Create registrations and obtain a unique payment ID from Convex
-      const paymentId = await createRegistrations({ 
+      const paymentId = await createRegistrations({
         items: registrationItems,
         deliveryMethod: deliveryMethod as "collect" | "delivery",
         address,
@@ -167,6 +133,58 @@ export default function CheckoutPage() {
     } catch (error) {
       console.error("Error initiating payment:", error);
       alert("Failed to initiate payment. Please try again.");
+    }
+  };
+
+  // ----- Pay Download Fee handler -----
+  const handlePayDownloadFee = async (reg: any) => {
+    try {
+      const username = user?.username || "";
+      const nameParts = username.split(" ");
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
+
+      const payload = {
+        firstName,
+        lastName,
+        email: user?.email || "",
+        paymentId: `${reg._id}-fee`,
+        amount: 200,
+        itemName: `Download Fee - ${reg.courseName}`,
+      };
+
+      const response = await fetch("/api/payfast/generate-signature", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate payment signature");
+      }
+
+      const signedData = await response.json();
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = `https://${pfHost}/eng/process`;
+
+      Object.entries(signedData).forEach(([key, value]) => {
+        if (!value) return;
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = (value as string).trim();
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+    } catch (error) {
+      console.error("Error initiating fee payment:", error);
+      alert("Failed to initiate download fee payment. Please try again.");
     }
   };
 
@@ -269,9 +287,9 @@ export default function CheckoutPage() {
               <h3 className="text-lg font-medium mb-3">How would you like to receive your items?</h3>
               <div className="flex flex-col space-y-3 mb-4">
                 <label className="flex items-center space-x-3 cursor-pointer">
-                  <input 
-                    type="radio" 
-                    name="deliveryMethod" 
+                  <input
+                    type="radio"
+                    name="deliveryMethod"
                     value="collect"
                     checked={deliveryMethod === "collect"}
                     onChange={() => setDeliveryMethod("collect")}
@@ -280,9 +298,9 @@ export default function CheckoutPage() {
                   <span>Collect at the office</span>
                 </label>
                 <label className="flex items-center space-x-3 cursor-pointer">
-                  <input 
-                    type="radio" 
-                    name="deliveryMethod" 
+                  <input
+                    type="radio"
+                    name="deliveryMethod"
                     value="delivery"
                     checked={deliveryMethod === "delivery"}
                     onChange={() => setDeliveryMethod("delivery")}
@@ -291,7 +309,7 @@ export default function CheckoutPage() {
                   <span>Require delivery</span>
                 </label>
               </div>
-              
+
               {deliveryMethod === "delivery" && (
                 <div className="mt-4 space-y-4 duration-300 animate-in fade-in slide-in-from-top-2">
                   <h4 className="font-medium">Delivery Address</h4>
@@ -332,16 +350,9 @@ export default function CheckoutPage() {
             </div>
 
             <Button onClick={handlePayNow} className="mt-6 w-full bg-green-600 text-white hover:bg-green-700" disabled={!user || items.length === 0 || !isCheckoutReady}>
-              Pay Now (BETA)
+              Pay Now (Payfast)
             </Button>
 
-            <Button
-              onClick={handleCreateRegistration}
-              className="mt-4 w-full bg-green-600 text-white hover:bg-green-700"
-              disabled={!user || items.length === 0 || !isCheckoutReady}
-            >
-              Create Registration
-            </Button>
 
             <Button
               onClick={clearCart}
@@ -369,6 +380,7 @@ export default function CheckoutPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attachment</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -391,6 +403,32 @@ export default function CheckoutPage() {
                         {reg.status}
                       </span>
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {reg.pdfUrl ? (
+                        reg.downloadFeePaid ? (
+                          <a
+                            href={reg.pdfUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100 transition-colors text-xs font-semibold"
+                            title={`Download ${reg.pdfName || "Certificate"}`}
+                          >
+                            <Download size={14} />
+                            <span>Download PDF</span>
+                          </a>
+                        ) : (
+                          <button
+                            onClick={() => handlePayDownloadFee(reg)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition-colors text-xs font-semibold cursor-pointer border border-yellow-200"
+                          >
+                            <Download size={14} />
+                            <span>Pay R200 to Download</span>
+                          </button>
+                        )
+                      ) : (
+                        <span className="text-gray-400 italic text-xs">No attachment available</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -401,4 +439,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-

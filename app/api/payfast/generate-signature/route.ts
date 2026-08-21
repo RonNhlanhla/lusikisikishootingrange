@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
         const isTesting = process.env.NEXT_PUBLIC_PAYFAST_TESTING === "true";
         const protocol = "https"; // Assuming https for production/sandbox
-        const siteUrl = "www.modesecurity.co.za";
+        const siteUrl = "www.lusikisikishootingrange.co.za";
 
         // 1. Build the PayFast data object in the CORRECT order
         const payfastData: Record<string, string> = {
